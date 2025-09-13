@@ -30,18 +30,18 @@ public class Config {
                 if (line.isEmpty()) continue;
 
                 if (line.startsWith("TP=")) {
-                    String val = line.substring(3).trim();
+                    // coger todo después del '='
+                    String val = line.split("=", 2)[1].trim();
                     if (DEBUG) System.out.println("DEBUG TP=«" + val + "»");
-                
-                
                     TP = Integer.parseInt(val);
                 } else if (line.startsWith("NPROC=")) {
-                    String val = line.substring(7).trim();
+                    String val = line.split("=", 2)[1].trim();
                     if (DEBUG) System.out.println("DEBUG NPROC=«" + val + "»");
                     NPROC = Integer.parseInt(val);
                 } else if (line.startsWith("TAMS=")) {
                     // normalizamos: x en minúscula, cambiamos × y ✕ por x, quitamos espacios
-                    tams = normalizeTams(line.substring(5));
+                    String raw = line.split("=", 2)[1];
+                    tams = normalizeTams(raw);
                     if (DEBUG) System.out.println("DEBUG TAMS(normalized)=«" + tams + "»");
                 }
             }
@@ -94,8 +94,7 @@ public class Config {
                 .toLowerCase()
                 .replace('×', 'x')       // multiplicación
                 .replace('✕', 'x')       // otra variante de multiplicación
-                .replace('x', 'x')       // asegura minúscula
-                .replace(" ", "");       // quita espacios en todo
+                .replaceAll(" ", "");    // quita espacios en todo
 
         // ejemplo: "4x4, 8×8" -> "4x4,8x8"
         return s;
