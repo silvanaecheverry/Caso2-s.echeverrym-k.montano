@@ -11,6 +11,9 @@ public class Proceso {
     public int fallos = 0;
     public int swaps = 0;
 
+    // Flag para controlar reintentos tras fallo
+    private boolean repetirRef = false;
+
     public Proceso(int id, List<Referencia> refs, int numPaginas) {
         this.id = id;
         this.referencias = refs;
@@ -41,5 +44,22 @@ public class Proceso {
 
     public int totalReferencias() {
         return referencias.size();
+    }
+
+    public int getIndiceActual() {
+        return puntero;
+    }
+
+    // ==== Métodos para manejar reintentos ====
+    public boolean debeReintentar() {
+        return repetirRef;
+    }
+
+    public void marcarReintento() {
+        repetirRef = true;
+    }
+
+    public void limpiarReintento() {
+        repetirRef = false;
     }
 }
