@@ -17,7 +17,7 @@ public class Simulador {
     }
 
     public void run(List<Proceso> procesos) {
-        // Asignación inicial de marcos (equitativa)
+        // Asignación inicial de marcos
         int marcosPorProc = totalMarcos / numProcesos;
         for (int i = 0; i < procesos.size(); i++) {
             marcosPorProceso.put(i, new ArrayList<>());
@@ -43,7 +43,7 @@ public class Simulador {
             Referencia ref = p.getReferenciaActual();
             PageEntry entrada = p.getEntrada(ref.pagina);
 
-            // Caso: la referencia fue un fallo en la vuelta anterior -avanzar sin contar hit
+            //la referencia fue un fallo en la vuelta anterior -avanzar sin contar hit
             if (p.debeReintentar()) {
                 p.limpiarReintento();
                 p.avanzar();
